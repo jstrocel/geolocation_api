@@ -1,0 +1,19 @@
+version: "3"
+services:
+  geolocation_api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://user:password@db:5432/geolocation_api
+      SECRET_KEY_BASE: $SECRET_KEY_BASE
+      GEOLOCATION_API_KEY: $GEOLOCATION_API_KEY
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: geolocation_api
